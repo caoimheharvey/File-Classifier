@@ -46,7 +46,7 @@ File 2: ./text-files/large2.txt	 605f29ab8c1c713cdee33c9eacf6f6b4
 
 --------------------------------------------------
 
-Comparing two large files where one is missing a word.
+Comparing two large files where one is missing a paragraph.
 
 File 1: ./text-files/large1.txt	 9fb9d1efd38ac7f83eceec206cf8a251
 File 2: ./text-files/large2.txt	 605f29ab8c1c713cdee33c9eacf6f6b4

@@ -1,8 +1,11 @@
+#!/usr/bin/env python
+__author__ = "Caoimhe Harvey"
+
 """
 Methods
 """
 
-def hasht(file):
+def fileHash(file):
     import hashlib
     BUF_SIZE = 65536
     md5 = hashlib.md5()

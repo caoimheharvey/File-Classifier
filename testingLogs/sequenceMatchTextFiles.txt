@@ -1,0 +1,96 @@
+
+--------------------------------------------------
+
+Two identical small files.
+
+Files compared: 
+small1.txt	small2.txt
+Similarity is at: 100.0
+
+Time elapsed: 0.11495304107666016
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+Two small files with entirely different text.
+
+Files compared: 
+small1.txt	small2.txt
+Similarity is at: 37.83783783783784
+
+Time elapsed: 0.09418106079101562
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+Same text verbatim, one is in all caps, the other is all lower case.
+
+Files compared: 
+small1.txt	small2.txt
+Similarity is at: 21.052631578947366
+
+Time elapsed: 0.1030738353729248
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+Same text verbatim, one has SOME caps, the other is all lower case.
+
+Files compared: 
+small1.txt	small2.txt
+Similarity is at: 84.21052631578947
+
+Time elapsed: 0.09793496131896973
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+Two identical large files (1MB).
+
+Files compared: 
+large1.txt	large2.txt
+Similarity is at: 100.0
+
+Time elapsed: 56.72412896156311
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+Small file v Large File
+
+Files compared: 
+small1.txt	large1.txt
+Similarity is at: 0.001010292863695328
+
+Time elapsed: 0.4509460926055908
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+Two large files where one is missing a paragraph.
+
+Files compared: 
+large1.txt	large2.txt
+Similarity is at: 99.97508959912444
+
+Time elapsed: 108.91841006278992
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+Two large files where one is missing 10+ paragraphs.
+
+Files compared: 
+large1.txt	large2.txt
+Similarity is at: 87.51745290215327
+
+Time elapsed: 277.3855559825897
+
+--------------------------------------------------
