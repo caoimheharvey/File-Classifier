@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Executes bash command from current folder
 
