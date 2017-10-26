@@ -1,0 +1,72 @@
+
+--------------------------------------------------
+
+Comparing two small identical files.
+
+File 1: ./text-files/small1.txt	 1f09ecbd362fa0dfff88d4788e6f5df0
+File 2: ./text-files/small2.txt	 1f09ecbd362fa0dfff88d4788e6f5df0
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+Comparing two small files where one has a full stop and the other does not.
+
+File 1: ./text-files/small1.txt	 a3c42535750e4c6758ccdf06020b28da
+File 2: ./text-files/small2.txt	 1f09ecbd362fa0dfff88d4788e6f5df0
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+Comparing two small files where the content is verbatim the same, but one contains upper case letters and the other is all lower case.
+
+File 1: ./text-files/small1.txt	 dce5fa9062c38a2fafdc769aeca2b6e8
+File 2: ./text-files/small2.txt	 1f09ecbd362fa0dfff88d4788e6f5df0
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+Comparing two small files with completely different content
+
+File 1: ./text-files/small1.txt	 5eb63bbbe01eeed093cb22bb8f5acdc3
+File 2: ./text-files/small2.txt	 1f09ecbd362fa0dfff88d4788e6f5df0
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+Comparing two large identical files.
+
+File 1: ./text-files/large1.txt	 605f29ab8c1c713cdee33c9eacf6f6b4
+File 2: ./text-files/large2.txt	 605f29ab8c1c713cdee33c9eacf6f6b4
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+Comparing two large files where one is missing a word.
+
+File 1: ./text-files/large1.txt	 9fb9d1efd38ac7f83eceec206cf8a251
+File 2: ./text-files/large2.txt	 605f29ab8c1c713cdee33c9eacf6f6b4
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+Comparing two large files where one is missing a full stop.
+
+File 1: ./text-files/large1.txt	 671335b5e324a58acfa475a4594e45bb
+File 2: ./text-files/large2.txt	 605f29ab8c1c713cdee33c9eacf6f6b4
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+Comparing two large files where the case in one letter is changed.
+
+File 1: ./text-files/large1.txt	 ffd3f93f44767e3a7d462fb58d44ee02
+File 2: ./text-files/large2.txt	 605f29ab8c1c713cdee33c9eacf6f6b4
+
+--------------------------------------------------
