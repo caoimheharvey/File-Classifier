@@ -15,3 +15,14 @@ def fileHash(file):
             md5.update(buf)
             buf = f.read(BUF_SIZE)
     return md5.hexdigest()
+
+
+def traverse(rootDir):
+    import os
+    for dirName, subdirList, fileList in os.walk(rootDir):
+        print('Found directory: %s' % dirName)
+        for fname in fileList:
+            print('\t%s' % fname)
+        if len(subdirList) > 0:
+            del subdirList[0]
+
