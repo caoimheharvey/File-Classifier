@@ -94,3 +94,39 @@ Similarity is at: 87.51745290215327
 Time elapsed: 277.3855559825897
 
 --------------------------------------------------
+
+--------------------------------------------------
+
+Profiling added
+
+Files compared: 
+large1.txt	large2.txt
+Similarity is at: 87.51745290215327
+
+Time elapsed: 303.02272510528564
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+Small file v Large File with Profiling
+
+Files compared: 
+small1.txt	large1.txt
+Similarity is at: 0.001010292863695328
+
+Time elapsed: 0.3839890956878662
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+small v large file WITHOUT profiling
+
+Files compared: 
+small1.txt	large1.txt
+Similarity is at: 0.001010292863695328
+
+Time elapsed: 0.3893470764160156
+
+--------------------------------------------------

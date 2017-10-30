@@ -70,3 +70,30 @@ File 1: ./text-files/large1.txt	 ffd3f93f44767e3a7d462fb58d44ee02
 File 2: ./text-files/large2.txt	 605f29ab8c1c713cdee33c9eacf6f6b4
 
 --------------------------------------------------
+
+--------------------------------------------------
+
+Hashing images
+
+File 1: ./images/borobudur1.jpg	 ef94230b4c9be739da55940432ea9a36
+File 2: ./images/borobudur1-1.jpg	 ef94230b4c9be739da55940432ea9a36
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+Hashing two different images
+
+File 1: ./images/borobudur1.jpg	 ef94230b4c9be739da55940432ea9a36
+File 2: ./images/borobudur2.jpg	 a2046bc089b5aabb89b50409d67e34a5
+
+--------------------------------------------------
+
+--------------------------------------------------
+
+One image with person the other is a landscape.
+
+File 1: ./images/borobudur1.jpg	 ef94230b4c9be739da55940432ea9a36
+File 2: ./images/kendallJenner.jpg	 10cec799b30635e5e507ee9e3386b311
+
+--------------------------------------------------

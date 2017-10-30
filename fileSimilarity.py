@@ -7,9 +7,12 @@ Additionally it calculates the time which it takes to compare the two files.
 """
 from difflib import SequenceMatcher
 import time
+
+
 testing = input("Modifications for this test: ")
 f1 = input("File 1: ")
 f2 = input("File 2: ")
+
 
 start_time = time.time()
 text1 = open("./text-files/" + f1 + ".txt").read()
