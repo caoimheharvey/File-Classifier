@@ -23,6 +23,7 @@ def runBashCommand(bashCommand):
     import subprocess
     process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
     output, error = process.communicate()
+    print(output)
 
 def cv2func():
     import subprocess
@@ -30,3 +31,17 @@ def cv2func():
     process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
     output, error = process.communicate()
 
+"""
+Adding a tag to a file or folder --- used to help identify the contents
+"""
+def addFileTag(tags, file_path):
+    """import subprocess
+    output = subprocess.check_output(['./scripts/tagging.sh', tags, file_path])
+    print(output)"""
+    runBashCommand("tag -a " + tags + " " + file_path)
+
+"""
+searching current directory for all files/directories with a certain tag
+"""
+def findAllFiles(tags):
+    runBashCommand("tag -f " + tags)
