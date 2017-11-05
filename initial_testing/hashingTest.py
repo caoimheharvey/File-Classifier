@@ -6,7 +6,7 @@ Purpose is to determine if hashing is a valid method
 to compare text based files for duplication system.
 """
 testing = input("Modifications for this test: ")
-import methods
+from functions import similarities as methods
 
 file1_path = input("Please enter file path for the first file: ")
 file2_path = input("Please enter file path for the second file: ")

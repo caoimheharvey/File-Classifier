@@ -2,7 +2,7 @@
 __author__ = "Caoimhe Harvey"
 
 """
-Methods
+Methods relating to finding the similarities between files
 """
 
 def fileHash(file):
@@ -16,21 +16,10 @@ def fileHash(file):
             buf = f.read(BUF_SIZE)
     return md5.hexdigest()
 
-
-def traverse(rootDir):
-    import os
-    for dirName, subdirList, fileList in os.walk(rootDir):
-        print('Found directory: %s' % dirName)
-        for fname in fileList:
-            print('\t%s' % fname)
-        if len(subdirList) > 0:
-            del subdirList[0]
-    print("---------------- DONE ------------------")
-
 """
 Vector Similarity
 """
-def get_cosine(vec1, vec2):
+def getCosine(vec1, vec2):
     import math
     intersection = set(vec1.keys()) & set(vec2.keys())
     numerator = sum([vec1[x] * vec2[x] for x in intersection])
@@ -43,7 +32,7 @@ def get_cosine(vec1, vec2):
     else:
         return float(numerator) / denominator
 
-def text_to_vector(text):
+def text2Vector(text):
     from collections import Counter
     import re
     WORD = re.compile(r'\w+')
