@@ -3,7 +3,6 @@ __author__ = "Caoimhe Harvey"
 
 """
 Methods for moving files and traversing the directories
-
 """
 def traverse(rootDir):
     import os
@@ -12,7 +11,7 @@ def traverse(rootDir):
     start = time.time()
     imageTable = defaultdict(list)
     for dirName, subdirList, fileList in os.walk(rootDir, topdown=False):
-        print('Found directory: %s' % dirName)
+        #print('Found directory: %s' % dirName)
         for fname in fileList:
             if (fname.lower().endswith(('.txt'))):
                 setTags(dirName + "/" + fname, 4)
@@ -23,7 +22,6 @@ def traverse(rootDir):
                 continue
         if len(subdirList) > 0:
             del subdirList[0]
-
     for key, value in imageTable.items():
         if (len(value) > 1):
             print(key, value)
@@ -82,6 +80,7 @@ def setTags(file, numberOfTags):
     tags = ""
     for key, value in mostcommon.items():
         tags += (key[1:] + ",")
+
     runBashCommand("tag -a " + tags + " " + file)
 
 # -----------------------------------------
@@ -107,4 +106,27 @@ def cv2func():
 searching current directory for all files/directories with a certain tag
 """
 def findAllFiles(tags):
-    runBashCommand("tag -f " + tags)
+    r = runBashCommand("tag -f " + tags)
+    return str(r)[2:-3].split("\\n")
+
+
+"""
+get similarity ratio
+"""
+
+def simRatio(file1, file2):
+    from difflib import SequenceMatcher
+    s = SequenceMatcher(None, open(file1).read(), open(file2).read())
+    return s.ratio()
+
+"""
+check for repetition
+"""
+def checkRep(key, value, arr):
+    temp = value
+    print("key ", arr[key])
+    print("val ", arr[value])
+    if (key in arr) and (value in arr):
+        print("exists")
+    else:
+        print("new")

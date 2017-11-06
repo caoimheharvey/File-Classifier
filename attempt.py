@@ -17,6 +17,7 @@ def findDupes(startDir):
                 dupes.append((existing, current))
             else:
                 seen[hashed] = current
+    print(dupes)
     return dupes
 
 def hashing(path):
@@ -26,3 +27,4 @@ def hashing(path):
         hasher.update(file.read())
         return hasher.hexdigest()
 
+findDupes("./")
