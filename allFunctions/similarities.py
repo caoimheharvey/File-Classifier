@@ -18,6 +18,7 @@ def fileHash(file):
 
 """
 Vector Similarity
+Used for larger files
 """
 def getCosine(vec1, vec2):
     import math
@@ -38,3 +39,13 @@ def text2Vector(text):
     WORD = re.compile(r'\w+')
     words = WORD.findall(text)
     return Counter(words)
+
+"""
+Comparing two files using Sequence Matcher
+"""
+def getRatioSmallFiles(file1_path, file2_path):
+    from difflib import SequenceMatcher
+    file1 = open(file1_path).read()
+    file2 = open(file2_path).read()
+    similarity = SequenceMatcher(None, file1, file2)
+    return similarity.ratio()

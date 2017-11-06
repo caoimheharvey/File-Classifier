@@ -1,6 +1,5 @@
 import os, hashlib
 from functions import similarities as s
-import attempt as a
 """
 rootDir = "./"
 hashed = {}
@@ -19,7 +18,3 @@ for key,value in hashed.items():
     print(key, value)
 print("---------------- DONE ------------------")
 """
-r = a.findDupes("./")
-
-for key in range(len(r)):
-    print(r[key])
