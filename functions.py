@@ -7,22 +7,33 @@ Methods for moving files and traversing the directories
 """
 def traverse(rootDir):
     import os
-    for dirName, subdirList, fileList in os.walk(rootDir):
+    from collections import defaultdict
+    import time
+    start = time.time()
+    imageTable = defaultdict(list)
+    for dirName, subdirList, fileList in os.walk(rootDir, topdown=False):
         print('Found directory: %s' % dirName)
         for fname in fileList:
-            print('\t%s' % fname)
-            if(fname.lower().endswith(('.txt'))):
-                continue
+            if (fname.lower().endswith(('.txt'))):
+                setTags(dirName + "/" + fname, 4)
+            elif (fname.lower().endswith(('.jpg', '.jpeg', '.png'))):
+                hashedImage = getHashValue(dirName + "/" + fname)
+                imageTable[hashedImage].append(dirName + "/" + fname)
             else:
-               continue
+                continue
         if len(subdirList) > 0:
             del subdirList[0]
+
+    for key, value in imageTable.items():
+        if (len(value) > 1):
+            print(key, value)
+    print("Total Time: " , time.time() - start)
     print("---------------- DONE ------------------")
 
 """
 Setting hash value for an image and adding it to a dictionary
 """
-def setHashValue(table, file):
+def getHashValue(file):
     import hashlib
     BUF_SIZE = 65536
     md5 = hashlib.md5()
@@ -31,8 +42,7 @@ def setHashValue(table, file):
         while len(buf) > 0:
             md5.update(buf)
             buf = f.read(BUF_SIZE)
-    hashed = md5.hexdigest()
-    return hashed
+    return md5.hexdigest()
 
 """
 Removes punctuation from a word
@@ -45,6 +55,10 @@ def removePunctuation(word):
            no_punct = no_punct + char
     return no_punct
 
+"""
+Gets the commonly occuring words from a text
+and returns them as a tag to the user
+"""
 def setTags(file, numberOfTags):
     import operator
     wordcount = {}
@@ -68,8 +82,6 @@ def setTags(file, numberOfTags):
     tags = ""
     for key, value in mostcommon.items():
         tags += (key[1:] + ",")
-
-    print(tags)
     runBashCommand("tag -a " + tags + " " + file)
 
 # -----------------------------------------
@@ -83,7 +95,6 @@ def runBashCommand(bashCommand):
     import subprocess
     process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
     output, error = process.communicate()
-    print(output)
     return output
 
 def cv2func():

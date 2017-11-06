@@ -7,7 +7,7 @@ Walkthrough
 
 import tkinter as tk
 from tkinter import filedialog
-from functions import FileOperations as f
+import functions as f
 
 class Application(tk.Frame):
     def __init__(self, master=None):
