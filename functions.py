@@ -80,8 +80,8 @@ def setTags(file, numberOfTags):
     tags = ""
     for key, value in mostcommon.items():
         tags += (key[1:] + ",")
-
-    runBashCommand("tag -a " + tags + " " + file)
+    # overwrites current tags
+    runBashCommand("tag -s " + tags + " " + file)
 
 # -----------------------------------------
 # All code which is to be executed from the command line goes here

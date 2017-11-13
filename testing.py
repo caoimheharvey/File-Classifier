@@ -1,9 +1,5 @@
 """
-This will be testing traversing files to initialize
-them with tags.
-Subsequently I will attempt to get all the similar files into
-a data structure where they can be analysed more in depth for
-similarity.
+File where I rough test code before including it in the main files
 """
 import functions
 from collections import defaultdict
@@ -19,8 +15,9 @@ for i in range(len(paths)):
         else:
             ratio = functions.simRatio(paths[i],paths[j])
             if(ratio > 0.70):
-                dd[paths[i]].append(paths[j])
-                #functions.checkRep(paths[i], paths[j], dd)
+                if paths[j] not in dd.keys() and paths[j] not in dd.values():
+                   dd[paths[i]].append(paths[j])
+
 
 for key, value in dd.items():
     print(key , value)

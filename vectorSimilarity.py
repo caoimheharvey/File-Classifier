@@ -2,7 +2,7 @@
 __author__ = "Caoimhe Harvey"
 
 import time
-from functions import similarities as m
+import functions as m
 start = time.time()
 
 text1 = open("./text-files/1.txt").read()
