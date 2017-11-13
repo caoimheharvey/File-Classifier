@@ -36,6 +36,7 @@ class Application(tk.Frame):
         print(directory)
         f.traverse(directory)
 
+
 root = tk.Tk()
 root.update()
 root.geometry('500x300')

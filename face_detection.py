@@ -3,11 +3,11 @@
 # !/usr/bin/env python
 
 import cv2
-
+import sys
 casc = cv2.CascadeClassifier("face_cascade.xml")
 
 # get image path from command line
-imagePath = "./images/complete-dataset/01.jpg"
+imagePath = sys.argv[1]
 
 image = cv2.imread(imagePath)
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
