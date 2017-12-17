@@ -11,7 +11,7 @@ def traverse(rootDir):
     start = time.time()
     imageTable = defaultdict(list)
     for dirName, subdirList, fileList in os.walk(rootDir, topdown = False):
-        #print('Found directory: %s' % dirName)
+        print('Found directory: %s' % dirName)
         for fname in fileList:
             if (fname.lower().endswith(('.txt'))):
                 setTags(dirName + "/" + fname, 5)

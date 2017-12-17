@@ -4,6 +4,7 @@
 
 import cv2
 import sys
+
 casc = cv2.CascadeClassifier("face_cascade.xml")
 
 # get image path from command line
@@ -15,7 +16,7 @@ gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 # code to detect the faces
 faces = casc.detectMultiScale(
     gray,
-    scaleFactor=1.9,
+    scaleFactor=1.01,
     minNeighbors=5,
     minSize=(30, 30),
 )
