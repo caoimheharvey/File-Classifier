@@ -1,5 +1,12 @@
 """
 File where I rough test code before including it in the main files
 """
-import functions
-functions.cv2func("./images/kard.jpg")
+#nlp
+import spacy
+
+nlp = spacy.load('en')
+document = open('./text-files/file1.txt').read()
+document = nlp(document)
+
+for ent in document.ents:
+    print (ent, ent.label_)
