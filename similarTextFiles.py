@@ -1,7 +1,8 @@
 from collections import defaultdict
 from difflib import SequenceMatcher
 
-arr = ['one', 'two', 'three', 'one', 'once', 'two', 'four', 'once', 'onces', 'twos']
+arr = ['one', 'two', 'three', 'one', 'ocne', 'two', 'four', 'once', 'onces', 'twos', 'espana', 'espanol', 'espanola', 'mountain'
+       ,'ciara', 'ciaran']
 dd = defaultdict(list)
 
 def f(word, list):
