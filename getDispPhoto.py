@@ -5,7 +5,7 @@ Module to get and display photos to the user from a certain date range.
 import os
 from collections import defaultdict
 import time
-import dateztime
+import datetime
 start = time.time()
 imageTable = defaultdict(list)
 startdate = datetime.datetime(2017, 11, 1)

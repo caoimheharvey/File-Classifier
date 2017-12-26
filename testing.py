@@ -9,4 +9,6 @@ document = open('./text-files/file1.txt').read()
 document = nlp(document)
 
 for ent in document.ents:
+    if ent.label_ == "CARDINAL":
+        continue
     print (ent, ent.label_)
