@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+
+###
+###                 This file contains all functions for the duplicate file finder module
+###
+###
 __author__ = "Caoimhe Harvey"
 
 """
@@ -14,11 +19,10 @@ def traverse(rootDir):
     list_of_text_files = []
 
     for dirName, subdirList, fileList in os.walk(rootDir, topdown = False):
-        #print('Found directory: %s' % dirName)
         for fname in fileList:
-            if (fname.lower().endswith(('.txt'))):
+            if fname.lower().endswith(('.txt')):
                 list_of_text_files.append(dirName + "/" + fname)
-            elif (fname.lower().endswith(('.jpg', '.jpeg', '.png'))):
+            elif fname.lower().endswith(('.jpg', '.jpeg', '.png')):
                 hashedImage = getHashValue(dirName + "/" + fname)
                 imageTable[hashedImage].append(dirName + "/" + fname)
             else:
@@ -26,17 +30,18 @@ def traverse(rootDir):
         if len(subdirList) > 0:
             del subdirList[0]
 
-    print("LIST OF ALL TEXT FILES", list_of_text_files)
     similar_text_files = mainFileComp(list_of_text_files)
+
     print("\n\n----------------- DUPLICATES --------------------")
+    print("\n\t\t-------- Images --------")
     for key, value in imageTable.items():
-        if (len(value) > 1):
+        if len(value) > 1:
             print(key, value)
 
+    print("\n\t\t------ Text Files ------")
     for key, value in similar_text_files.items():
-        if (len(value) > 1):
-            print(key, value)
-    print("Total Time: " , time.time() - start)
+        print(key, value)
+    print("\n\nTotal Time: " , time.time() - start)
     print("---------------- PROGRAM ENDED ------------------")
 
 """
@@ -53,6 +58,30 @@ def getHashValue(file):
             buf = f.read(BUF_SIZE)
     return md5.hexdigest()
 
+
+"""
+Vector Similarity
+Used for larger files
+"""
+def getCosine(vec1, vec2):
+    import math
+    intersection = set(vec1.keys()) & set(vec2.keys())
+    numerator = sum([vec1[x] * vec2[x] for x in intersection])
+
+    sum1 = sum([vec1[x]**2 for x in vec1.keys()])
+    sum2 = sum([vec2[x]**2 for x in vec2.keys()])
+    denominator = math.sqrt(sum1) * math.sqrt(sum2)
+    if not denominator:
+        return 0.0
+    else:
+        return float(numerator) / denominator
+
+def text2Vector(text):
+    from collections import Counter
+    import re
+    WORD = re.compile(r'\w+')
+    words = WORD.findall(text)
+    return Counter(words)
 
 
 # -----------------------------------------
@@ -73,13 +102,13 @@ def cv2func(image):
     subprocess.call(["bin/bash", "runCV.sh"], image)
 
 ###
-###         Code to be replacing anything relating to tags
+###         FINDING SIMILAR TEXT FILES
 ###
 
 def compare(word, list):
     from difflib import SequenceMatcher
-    size = len(list)
-    c = 0
+    list_len = len(list)
+    counter = 0
     for key, value in list.items():
         if word in list.keys():
             #if word is a key then skip
@@ -88,17 +117,19 @@ def compare(word, list):
             #before creating a new key, check if it is similar to already existing keys
             if SequenceMatcher(None, open(word).read(), open(key).read()).ratio() > 0.7:
                 return "add", key
-            elif c != size:
+            elif counter != list_len:
                 continue
-            elif c == size:
+            elif counter == list_len:
                 return "new", ""
-        c += 1
+
+        counter += 1
     return "new", ""
 
 def mainFileComp(arr):
     from collections import defaultdict
 
     dd = defaultdict(list)
+    final = defaultdict(list)
 
     for i in range(len(arr)):
         if(len(dd) == 0):
@@ -111,8 +142,8 @@ def mainFileComp(arr):
                 dd[arr[i]]
             elif r == "skip":
                 continue
-
     for k , v in dd.items():
-        print("key-val", k, v)
+        if dd[k]:
+            final[k] = v
 
-    return dd
+    return final

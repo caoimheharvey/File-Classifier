@@ -1,8 +1,8 @@
 from collections import defaultdict
 from difflib import SequenceMatcher
 
-arr = ['one', 'two', 'three', 'one', 'ocne', 'two', 'four', 'once', 'onces', 'twos', 'espana', 'espanol', 'espanola', 'mountain'
-       ,'ciara', 'ciaran']
+arr = ['one', 'two', 'three', 'one', 'ocne', 'two', 'montana', 'once', 'onces', 'twos', 'spain', 'spanish', 'espanola', 'mountain',
+       'ciara', 'ciaran', 'tree']
 dd = defaultdict(list)
 
 def f(word, list):
@@ -35,5 +35,6 @@ for i in range(len(arr)):
         elif r == "skip":
             continue
 
-print(dd)
+for key, value in dd.items():
+    print (key, value)
 
