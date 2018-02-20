@@ -1,40 +1,61 @@
 from collections import defaultdict
-from difflib import SequenceMatcher
 
-arr = ['one', 'two', 'three', 'one', 'ocne', 'two', 'montana', 'once', 'onces', 'twos', 'spain', 'spanish', 'espanola', 'mountain',
-       'ciara', 'ciaran', 'tree']
+import docx2txt
+
+a = ['./text-files/file1.txt', './text-files/file1c.txt','./text-files/file2.txt','./text-files/file2.txt','./text-files/file3.txt'
+      ,'./text-files/file4.txt','./text-files/file5.txt','./text-files/test.docx']
 dd = defaultdict(list)
 
-def f(word, list):
+def comp (file, file_path, list):
+    from difflib import SequenceMatcher
     size = len(list)
-    c = 0
+    ctr = 0
     for key, value in list.items():
-        if word in list.keys():
-            #if word is a key then skip
+        if file_path in list.keys():
+            print("skip")
             return "skip",""
         else:
-            #before creating a new key, check if it is similar to already existing keys
-            if SequenceMatcher(None, word, key).ratio() > 0.7:
+            if SequenceMatcher(None, file, open(key).read()).ratio() > 0.7:
                 return "add", key
-            elif c != size:
+            elif ctr != size:
                 continue
-            elif c == size:
+            elif ctr == size:
                 return "new", ""
-        c += 1
-    return "new", ""
+        ctr+=1
+    return "new",""
 
-for i in range(len(arr)):
-    if(len(dd) == 0):
-        dd[arr[i]]
-    else:
-        r , key = f(arr[i], dd)
-        if r == "add":
-            dd[key].append(arr[i])
-        elif r == "new":
+
+def maincomp(arr):
+    for i in range(len(arr)):
+        if arr[i].lower().endswith('.docx'):
+            file_string = docx2txt.process(arr[i])
+        else:
+            file_string = open(arr[i]).read()
+
+        if(len(dd) == 0):
             dd[arr[i]]
-        elif r == "skip":
+        else:
+            result, key = comp(file_string, arr[i], dd)
+            if result == "add":
+                dd[key].append(arr[i])
+            elif result == "new":
+                dd[arr[i]]
+            elif result == "skip":
+                continue
+
+    for key, value in dd.items():
+        print (key, value)
+
+import os
+list_text = []
+for dirName, subdirList, fileList in os.walk("./", topdown=False):
+    for fname in fileList:
+        if fname.lower().endswith(('.txt', '.docx')):
+            list_text.append(dirName + "/" + fname)
+        else:
             continue
+    if len(subdirList) > 0:
+        del subdirList[0]
 
-for key, value in dd.items():
-    print (key, value)
-
+print(list_text)
+maincomp(list_text)

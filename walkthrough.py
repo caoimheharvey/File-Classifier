@@ -7,7 +7,7 @@ Walkthrough
 
 import tkinter as tk
 from tkinter import filedialog
-import functions as f
+import duplicationFunctions as f
 
 class Application(tk.Frame):
     def __init__(self, master=None):
