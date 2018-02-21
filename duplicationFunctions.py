@@ -142,6 +142,7 @@ def mainFileComp(arr):
         if(len(dd) == 0):
             dd[arr[i]]
         else:
+            # TODO: Figure out the unsolved reference
             res , key = compare(file_string,arr[i], dd)
             if res == "add":
                 dd[key].append(arr[i])
