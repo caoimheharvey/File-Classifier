@@ -6,10 +6,10 @@ from nltk.stem.lancaster import LancasterStemmer
 import json
 import datetime
 stemmer = LancasterStemmer()
-
-#TODO: code here to get all files from the mock_env to train
 import os
 from collections import defaultdict
+
+
 # Empty dictionary of all text-file paths in the directory and their category
 allTextFiles = defaultdict(list)
 # Set the directory you want to start from
@@ -35,19 +35,7 @@ for key, value in allTextFiles.items():
             training_data.append({"class": key, "sentence": open(item, 'r').read()})
         counter +=1
 
-# 3 classes of training data
-# training_data.append({"class":"greeting", "sentence":"good day."})
-# training_data.append({"class":"greeting", "sentence":"how is it going today?"})
-#
-# training_data.append({"class":"goodbye", "sentence":"have a nice day"})
-# training_data.append({"class":"goodbye", "sentence":"see you later."})
-# training_data.append({"class":"goodbye", "sentence":"have a nice day"})
-# training_data.append({"class":"goodbye", "sentence":"talk to you soon"})
-#
-# training_data.append({"class":"sandwich", "sentence":"make me a sandwich"})
-# training_data.append({"class":"sandwich", "sentence":"can you make a sandwich?"})
-# training_data.append({"class":"sandwich", "sentence":"having a sandwich today?"})
-# training_data.append({"class":"sandwich", "sentence":"what's for lunch?"})
+
 print ("%s files in training data" % len(training_data))
 
 words = []
@@ -271,11 +259,7 @@ def classify(sentence, show_details=False):
     print ("%s \n classification: %s" % (sentence, return_results))
     return return_results
 
-# classify("sudo make me a sandwich")
-# classify("how are you today?")
-# classify("talk to you tomorrow")
-# classify("who are you?")
-# classify("make me some lunch.")
-# classify("how was your lunch today?")
 print()
-classify(open("/Users/CaoimheHarvey/desktop/test_files/Impressionism.txt", 'r').read())
+res = classify(open("/Users/CaoimheHarvey/desktop/test_files/Impressionism.txt", 'r').read())
+print(type(res), res)
+
