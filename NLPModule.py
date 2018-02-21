@@ -250,16 +250,36 @@ with open(synapse_file) as data_file:
     synapse_0 = np.asarray(synapse['synapse0'])
     synapse_1 = np.asarray(synapse['synapse1'])
 
-def classify(sentence, show_details=False):
+def classify(oldPath, sentence, show_details=False):
     results = think(sentence, show_details)
 
     results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD ]
     results.sort(key=lambda x: x[1], reverse=True)
     return_results =[[classes[r[0]],r[1]] for r in results]
     print ("%s \n classification: %s" % (sentence, return_results))
-    return return_results
+    # return return_results
+    # Post Classification Processing
+    for item in return_results:
+        for word in item:
+            if(type(word) == str):
+                processResults(word, oldPath)
+
+def processResults(fName, oldPath):
+    rootDir = '/Users/CaoimheHarvey/Desktop/Mock_Environment'
+    for dirName, subdirList, fileList in os.walk(rootDir):
+        folders = dirName.split('/')
+        folderName = folders[len(folders) - 1]
+        if(folderName == fName):
+            newPath = dirName
+            bashCommand = "mv " + oldPath + " " + newPath
+            import subprocess
+            process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+            output, error = process.communicate()
+            print("The file can be found at: " , newPath)
+            # Terminate the process as file is to be allocated to only 1 folder
+            # the one which it most closely matches
+            exit(0)
 
 print()
-res = classify(open("/Users/CaoimheHarvey/desktop/test_files/Impressionism.txt", 'r').read())
-print(type(res), res)
-
+file = "/Users/CaoimheHarvey/desktop/test_files/Impressionism.txt"
+res = classify(file, open(file, 'r').read())
