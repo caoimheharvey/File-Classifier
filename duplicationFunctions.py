@@ -125,8 +125,6 @@ def text2Vector(text):
     words = WORD.findall(text)
     return Counter(words)
 
-
-
 # ***********************************************************************
 #
 #   Function: RunBashCommand
@@ -146,6 +144,26 @@ def runBashCommand(bashCommand):
     process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
     output, error = process.communicate()
     return output
+
+# ***********************************************************************
+#
+#   Function: checkextension
+#
+#   Checks the extension of a file and returns it as a string
+#
+#   Parameters:
+#       * file: file of either .docx or .txt
+#
+#   Returns:
+#       * inputted file as a string
+#
+# ***********************************************************************
+def checkextension(file):
+    import docx2txt
+    if file.lower().endswith('.txt'):
+        return open(file, 'r').read()
+    else:
+        return docx2txt.process(file)
 
 # ***********************************************************************
 #
@@ -174,9 +192,7 @@ def compare(file, file_path, list):
         if file_path in list.keys():
             return "skip",""
         else:
-
-            if SequenceMatcher(None, file,
-                               open(key).read()).ratio() > 0.7:
+            if SequenceMatcher(None, file, checkextension(key)).ratio() > 0.7:
                 return "add", key
             elif counter != list_len:
                 continue
@@ -189,7 +205,6 @@ def compare(file, file_path, list):
 
 # ***********************************************************************
 #
-#           TODO: Add comparison factor for docx files to text files
 #   Function: MainFileComp
 #
 #   Heart of the duplication identifier algorithm. Takes in a list of all text based files
@@ -202,25 +217,25 @@ def compare(file, file_path, list):
 #       * final: array of all duplicated files
 #
 # ***********************************************************************
-def mainFileComp(arr):
+def mainFileComp(paths):
     from collections import defaultdict
 
     dd = defaultdict(list)
     final = defaultdict(list)
 
-    for i in range(len(arr)):
+    for i in range(len(paths)):
         if(len(dd) == 0):
-            dd[arr[i]]
+            dd[paths[i]]
         else:
-            res , key = compare(open(arr[i], 'rb').read(),arr[i], dd)
+            contents = checkextension(paths[i])
+            res , key = compare(contents, paths[i], dd)
             if res == "add":
-                dd[key].append(arr[i])
+                dd[key].append(paths[i])
             elif res == "new":
-                dd[arr[i]]
+                dd[paths[i]]
             elif res == "skip":
                 continue
     for k , v in dd.items():
         if dd[k]:
             final[k] = v
-
     return final

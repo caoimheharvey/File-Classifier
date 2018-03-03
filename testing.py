@@ -1,5 +1,4 @@
 import os
-import docx2txt as doc
 
 textArr = []
 rootDir = './text-files'
@@ -7,14 +6,6 @@ for dirName, subdirList, fileList in os.walk(rootDir):
     for fname in fileList:
        if fname.endswith(('.txt', '.docx')):
            textArr.append(dirName + "/" + fname)
-
-# compare docx file to a text file with the same text
-from difflib import SequenceMatcher
-file1 = './text-files/file4.txt'
-file2 = doc.process('./text-files/test.docx')
-
-res = SequenceMatcher(None, open(file1, 'r').read(), file2)
-print(res.ratio())
 
 #compare one docx to multiple text files
 def compare(file, file_path, list):
@@ -40,11 +31,9 @@ def compare(file, file_path, list):
 def checkextension(file):
     import docx2txt
     if file.lower().endswith('.txt'):
-        field1 = open(file, 'r').read()
-        return field1
+        return open(file, 'r').read()
     else:
-        field1 = docx2txt.process(file)
-        return field1
+        return docx2txt.process(file)
 
 def mainFileComp(paths):
     from collections import defaultdict

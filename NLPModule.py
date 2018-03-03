@@ -5,10 +5,10 @@ import nltk
 from nltk.stem.lancaster import LancasterStemmer
 import json
 import datetime
-stemmer = LancasterStemmer()
 import os
 from collections import defaultdict
-
+import duplicationFunctions as df
+stemmer = LancasterStemmer()
 
 # Empty dictionary of all text-file paths in the directory and their category
 allTextFiles = defaultdict(list)
@@ -18,7 +18,7 @@ for dirName, subdirList, fileList in os.walk(rootDir):
     folders = dirName.split('/')
     folderName = folders[len(folders)-1]
     for fname in fileList:
-        if fname.endswith('.txt'):
+        if fname.endswith(('.txt', '.docx')):
              allTextFiles[folderName].append(dirName + "/"+ fname)
 training_data = []
 # Parsing the value list into string to be stored with the key
@@ -27,12 +27,14 @@ for key, value in allTextFiles.items():
     itemsArray = (str(value).split(","))
     for item in itemsArray:
         if(counter + 1 == len(itemsArray)):
-            training_data.append({"class": key, "sentence": open(item[2:-2], 'r').read()})
+            # training_data.append({"class": key, "sentence": open(item[2:-2], 'r').read()})
+            training_data.append({"class": key, "sentence": df.checkextension(item[2:-2])})
         else:
             item = item[2:-1]
             if item.endswith(".txt\'"):
                 item = str(item)[:-1]
-            training_data.append({"class": key, "sentence": open(item, 'r').read()})
+            # training_data.append({"class": key, "sentence": open(item, 'r').read()})
+            training_data.append({"class": key, "sentence": df.checkextension(item)})
         counter +=1
 
 
@@ -283,4 +285,5 @@ def processResults(fName, oldPath):
 
 print()
 file = "/Users/CaoimheHarvey/desktop/test_files/Impressionism.txt"
-res = classify(file, open(file, 'r').read())
+# res = classify(file, open(file, 'r').read())
+res = classify(file, df.checkextension(file))
