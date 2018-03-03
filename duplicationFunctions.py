@@ -154,7 +154,6 @@ def runBashCommand(bashCommand):
 #   Function used to compare the existing files in a list to a file and evaluate
 #       if they are similar (add as duplicate) or not.
 #
-#
 #   Parameters:
 #       * file: the string of the file itself to be compared
 #       * file_path: the path of the file to be compared
