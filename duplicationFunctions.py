@@ -1,14 +1,19 @@
 #!/usr/bin/env python
 
-###
-###   This file contains all functions for the duplicate file finder module
-###
-###
+
 __author__ = "Caoimhe Harvey"
 
-"""
-Methods for moving files and traversing the directories
-"""
+# ***********************************************************************
+#
+#   Function: Traverse
+#
+#   Goes through all directories and finds duplicate images and text files.
+#       Main part of the duplication finding algorithm. Establishes the files to be compared.
+#
+#   Parameters:
+#       * rootDir: directory to serve as main node. All subdirectories are scanned
+#
+# ***********************************************************************
 def traverse(rootDir):
     import os
     from collections import defaultdict
@@ -44,9 +49,20 @@ def traverse(rootDir):
     print("\n\nTotal Time: " , time.time() - start)
     print("---------------- PROGRAM ENDED ------------------")
 
-"""
-Setting hash value for an image and adding it to a dictionary
-"""
+# ***********************************************************************
+#
+#   Function: getHashValue
+#
+#   Generates the hash value of a file
+#
+#
+#   Parameters:
+#       * file: file from which a hash value will be generated
+#
+#   Returns:
+#       * hash value
+#
+# ***********************************************************************
 def getHashValue(file):
     import hashlib
     BUF_SIZE = 65536
@@ -59,10 +75,18 @@ def getHashValue(file):
     return md5.hexdigest()
 
 
-"""
-Vector Similarity
-Used for larger files
-"""
+# ***********************************************************************
+#
+#   Function: getCosine
+#
+#
+#
+#
+#   Parameters:
+#       * vec1:
+#       * vec2:
+#
+# ***********************************************************************
 def getCosine(vec1, vec2):
     import math
     intersection = set(vec1.keys()) & set(vec2.keys())
@@ -76,6 +100,17 @@ def getCosine(vec1, vec2):
     else:
         return float(numerator) / denominator
 
+# ***********************************************************************
+#
+#   Function: text2Vector
+#
+#   Converts the
+#
+#
+#   Parameters:
+#       * text
+#
+# ***********************************************************************
 def text2Vector(text):
     from collections import Counter
     import re
@@ -84,12 +119,18 @@ def text2Vector(text):
     return Counter(words)
 
 
-# -----------------------------------------
-# All code which is to be executed from the command line goes here
-# -----------------------------------------
-"""
-Running bash commands from python
-"""
+
+# ***********************************************************************
+#
+#   Function: RunBashCommand
+#
+#   Function used to run a command from bash
+#
+#
+#   Parameters:
+#       * bashCommand: command desired to run
+#
+# ***********************************************************************
 
 def runBashCommand(bashCommand):
     import subprocess
@@ -97,17 +138,20 @@ def runBashCommand(bashCommand):
     output, error = process.communicate()
     return output
 
-def cv2func(image):
-    import subprocess
-    subprocess.call(["bin/bash", "runCV.sh"], image)
-
-###
-###         FINDING SIMILAR TEXT FILES
-###
-
-#TODO: Add comparison factor for docx files to text files
-
-
+# ***********************************************************************
+#
+#   Function: Compare
+#
+#   Function used to compare the existing files in a list to a file and evaluate
+#       if they are similar (add as duplicate) or not.
+#
+#
+#   Parameters:
+#       * file: the string of the file itself to be compared
+#       * file_path: the path of the file to be compared
+#       * list: list of all the existing recognized duplicates
+#
+# ***********************************************************************
 def compare(file, file_path, list):
     from difflib import SequenceMatcher
 
@@ -130,10 +174,20 @@ def compare(file, file_path, list):
     return "new", ""
 
 
-
+# ***********************************************************************
+#
+#           TODO: Add comparison factor for docx files to text files
+#   Function: MainFileComp
+#
+#   Heart of the duplication identifier algorithm. Takes in a list of all text based files
+#       in a directory and outputs the ones with similar or duplicated content
+#
+#   Parameters:
+#       * arr: array of all text, and docx files to be compared
+#
+# ***********************************************************************
 def mainFileComp(arr):
     from collections import defaultdict
-    import docx2txt
 
     dd = defaultdict(list)
     final = defaultdict(list)
@@ -142,8 +196,7 @@ def mainFileComp(arr):
         if(len(dd) == 0):
             dd[arr[i]]
         else:
-            # TODO: Figure out the unsolved reference
-            res , key = compare(file_string,arr[i], dd)
+            res , key = compare(open(arr[i], 'rb').read(),arr[i], dd)
             if res == "add":
                 dd[key].append(arr[i])
             elif res == "new":

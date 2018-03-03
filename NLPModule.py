@@ -256,7 +256,7 @@ def classify(oldPath, sentence, show_details=False):
     results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD ]
     results.sort(key=lambda x: x[1], reverse=True)
     return_results =[[classes[r[0]],r[1]] for r in results]
-    print ("%s \n classification: %s" % (sentence, return_results))
+    print (oldPath + "\nClassification: %s" % (return_results))
     # return return_results
     # Post Classification Processing
     for item in return_results:
@@ -275,6 +275,7 @@ def processResults(fName, oldPath):
             import subprocess
             process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
             output, error = process.communicate()
+            print(output, error)
             print("The file can be found at: " , newPath)
             # Terminate the process as file is to be allocated to only 1 folder
             # the one which it most closely matches
