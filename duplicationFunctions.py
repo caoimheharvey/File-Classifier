@@ -1,5 +1,9 @@
 #!/usr/bin/env python
-
+# ***********************************************************************
+#
+#   Functions used in the duplication module of the project.
+#
+# ***********************************************************************
 
 __author__ = "Caoimhe Harvey"
 
@@ -55,7 +59,6 @@ def traverse(rootDir):
 #
 #   Generates the hash value of a file
 #
-#
 #   Parameters:
 #       * file: file from which a hash value will be generated
 #
@@ -79,12 +82,14 @@ def getHashValue(file):
 #
 #   Function: getCosine
 #
-#
-#
+#   Used to calculate the similarity of two documents through Cosine Similarity.
 #
 #   Parameters:
-#       * vec1:
-#       * vec2:
+#       * vec1: the first of the two files to be compared
+#       * vec2: the second of the files to be compared
+#
+#   Returns:
+#       * the vector of similarity
 #
 # ***********************************************************************
 def getCosine(vec1, vec2):
@@ -104,11 +109,13 @@ def getCosine(vec1, vec2):
 #
 #   Function: text2Vector
 #
-#   Converts the
-#
+#   Converts the text from a document to a mathematical value
 #
 #   Parameters:
-#       * text
+#       * text: string from a document
+#
+#   Returns:
+#       * vector: numerical value associated with the string
 #
 # ***********************************************************************
 def text2Vector(text):
@@ -126,9 +133,11 @@ def text2Vector(text):
 #
 #   Function used to run a command from bash
 #
-#
 #   Parameters:
 #       * bashCommand: command desired to run
+#
+#   Returns:
+#       * output: if empty or null then its a success
 #
 # ***********************************************************************
 
@@ -150,6 +159,11 @@ def runBashCommand(bashCommand):
 #       * file: the string of the file itself to be compared
 #       * file_path: the path of the file to be compared
 #       * list: list of all the existing recognized duplicates
+#
+#   Returns:
+#       * "add", key: add the file as a duplicate to an existing key
+#       * "new": does not exist as a key, needs to be created as one
+#       * "skip": file path already exists as a key
 #
 # ***********************************************************************
 def compare(file, file_path, list):
@@ -184,6 +198,9 @@ def compare(file, file_path, list):
 #
 #   Parameters:
 #       * arr: array of all text, and docx files to be compared
+#
+#   Returns:
+#       * final: array of all duplicated files
 #
 # ***********************************************************************
 def mainFileComp(arr):
