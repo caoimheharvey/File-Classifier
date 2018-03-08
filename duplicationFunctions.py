@@ -53,6 +53,8 @@ def traverse(rootDir):
     print("\n\nTotal Time: " , time.time() - start)
     print("---------------- PROGRAM ENDED ------------------")
 
+    return imageTable, similar_text_files
+
 # ***********************************************************************
 #
 #   Function: getHashValue
