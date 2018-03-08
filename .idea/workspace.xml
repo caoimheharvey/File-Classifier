@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4860ef24-62c7-4eba-85b6-84566243f40f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/duplicationFunctions.py" afterPath="$PROJECT_DIR$/duplicationFunctions.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/interface-attempt.py" afterPath="$PROJECT_DIR$/interface-attempt.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testing.py" afterPath="$PROJECT_DIR$/testing.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/walkthrough.py" afterPath="$PROJECT_DIR$/walkthrough.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,10 +21,10 @@
     <SUITE FILE_PATH="coverage/File_Classifier$walkthrough.coverage" NAME="walkthrough Coverage Results" MODIFIED="1520533236194" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/File_Classifier$duplicationFunctions.coverage" NAME="duplicationFunctions Coverage Results" MODIFIED="1519222721824" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/File_Classifier$hashtable.coverage" NAME="hashtable Coverage Results" MODIFIED="1509970353557" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/File_Classifier$interface_attempt.coverage" NAME="interface-attempt Coverage Results" MODIFIED="1520530950878" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/File_Classifier$interface_attempt.coverage" NAME="interface-attempt Coverage Results" MODIFIED="1520538666352" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/File_Classifier$face_detection.coverage" NAME="face_detection Coverage Results" MODIFIED="1510587949873" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/File_Classifier$hashingTest.coverage" NAME="hashingTest Coverage Results" MODIFIED="1509969695787" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/findingSimilarities" />
-    <SUITE FILE_PATH="coverage/File_Classifier$testing.coverage" NAME="testing Coverage Results" MODIFIED="1520113401436" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/File_Classifier$testing.coverage" NAME="testing Coverage Results" MODIFIED="1520536024157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/File_Classifier$getDispPhoto.coverage" NAME="getDispPhoto Coverage Results" MODIFIED="1517399047527" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/File_Classifier$kivy_interface.coverage" NAME="kivy_interface Coverage Results" MODIFIED="1518881673269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/File_Classifier$similarTextFiles.coverage" NAME="similarTextFiles Coverage Results" MODIFIED="1518274264934" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -35,30 +34,38 @@
     <SUITE FILE_PATH="coverage/File_Classifier$getFilesByTag.coverage" NAME="getFilesByTag Coverage Results" MODIFIED="1514296441308" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="walkthrough.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/walkthrough.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-              <folding>
-                <element signature="e#53#73#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="duplicationFunctions.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/duplicationFunctions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="55" column="41" lean-forward="false" selection-start-line="55" selection-start-column="41" selection-end-line="55" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.22824156">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="testing.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/testing.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="237">
+                  <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#53#73#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="interface-attempt.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/interface-attempt.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="0">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -99,11 +106,11 @@
         <option value="$PROJECT_DIR$/postClassificationProcessing.py" />
         <option value="$PROJECT_DIR$/NaiveBayes.py" />
         <option value="$PROJECT_DIR$/hex.py" />
-        <option value="$PROJECT_DIR$/testing.py" />
         <option value="$PROJECT_DIR$/NLPModule.py" />
-        <option value="$PROJECT_DIR$/interface-attempt.py" />
         <option value="$PROJECT_DIR$/duplicationFunctions.py" />
         <option value="$PROJECT_DIR$/walkthrough.py" />
+        <option value="$PROJECT_DIR$/testing.py" />
+        <option value="$PROJECT_DIR$/interface-attempt.py" />
       </list>
     </option>
   </component>
@@ -114,7 +121,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="31" />
+    <option name="x" value="55" />
     <option name="y" value="23" />
     <option name="width" value="1397" />
     <option name="height" value="839" />
@@ -169,7 +176,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.walkthrough">
+  <component name="RunManager" selected="Python.interface-attempt">
     <configuration name="hex" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -269,10 +276,10 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.walkthrough" />
-        <item index="1" class="java.lang.String" itemvalue="Python.interface-attempt" />
-        <item index="2" class="java.lang.String" itemvalue="Python.test" />
-        <item index="3" class="java.lang.String" itemvalue="Python.testing" />
+        <item index="0" class="java.lang.String" itemvalue="Python.interface-attempt" />
+        <item index="1" class="java.lang.String" itemvalue="Python.testing" />
+        <item index="2" class="java.lang.String" itemvalue="Python.walkthrough" />
+        <item index="3" class="java.lang.String" itemvalue="Python.test" />
         <item index="4" class="java.lang.String" itemvalue="Python.hex" />
       </list>
     </recent_temporary>
@@ -303,7 +310,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="31" y="23" width="1397" height="839" extended-state="0" />
+    <frame x="55" y="23" width="1397" height="839" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1690037" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -312,7 +319,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980132" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980132" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39784947" sideWeight="0.49713466" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39784947" sideWeight="0.49713466" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32258064" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -382,7 +389,6 @@
     <entry file="file://$PROJECT_DIR$/vectorSimilarity.py" />
     <entry file="file://$PROJECT_DIR$/mostCommonEnglishWords.txt" />
     <entry file="file://$PROJECT_DIR$/setTagA.py" />
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/tkinter/__init__.py" />
     <entry file="file://$PROJECT_DIR$/images/runCv.sh" />
     <entry file="file://$PROJECT_DIR$/runCv.sh" />
     <entry file="file://$PROJECT_DIR$/text-files/file1c.txt">
@@ -418,25 +424,7 @@
         <state relative-caret-position="3825">
           <caret line="261" column="27" lean-forward="false" selection-start-line="261" selection-start-column="27" selection-end-line="261" selection-end-column="27" />
           <folding>
-            <element signature="e#117#128#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/interface-attempt.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#117#128#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -444,18 +432,44 @@
     <entry file="file://$PROJECT_DIR$/duplicationFunctions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="412">
-          <caret line="55" column="41" lean-forward="false" selection-start-line="55" selection-start-column="41" selection-end-line="55" selection-end-column="41" />
+          <caret line="55" column="41" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="242" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/walkthrough.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+        <state relative-caret-position="393">
+          <caret line="47" column="43" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
           <folding>
             <element signature="e#53#73#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/tkinter/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="1548" column="0" lean-forward="false" selection-start-line="1548" selection-start-column="0" selection-end-line="1548" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+          <folding>
+            <element signature="e#53#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/interface-attempt.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

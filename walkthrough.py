@@ -47,15 +47,6 @@ class Application(tk.Frame):
         #TODO: Parsing and formatting on the returned values
         Label(tab2, text= textfiles).pack()
 
-class MainForm(Toplevel):
-    def __init__(self):
-        super().__init__()
-        self.init_widgets()
-
-    def init_widgets(self):
-        mainframe = Frame(self, padding='5 5')
-        Button(mainframe, text='Click me').pack()
-
 
 # **********************************
 #
