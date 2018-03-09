@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 __author__ = "Caoimhe Harvey"
-
+# TODO: Currently testing the interface for Duplicates Result
 import tkinter as tk
 from tkinter.ttk import *
 from tkinter import filedialog

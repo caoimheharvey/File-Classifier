@@ -9,95 +9,6 @@ import os
 from collections import defaultdict
 import duplicationFunctions as df
 stemmer = LancasterStemmer()
-
-# Empty dictionary of all text-file paths in the directory and their category
-allTextFiles = defaultdict(list)
-# Set the directory you want to start from
-rootDir = '/Users/CaoimheHarvey/Desktop/Mock_Environment'
-for dirName, subdirList, fileList in os.walk(rootDir):
-    folders = dirName.split('/')
-    folderName = folders[len(folders)-1]
-    for fname in fileList:
-        if fname.endswith(('.txt', '.docx')):
-             allTextFiles[folderName].append(dirName + "/"+ fname)
-training_data = []
-# Parsing the value list into string to be stored with the key
-counter = 0
-for key, value in allTextFiles.items():
-    itemsArray = (str(value).split(","))
-    for item in itemsArray:
-        if(counter + 1 == len(itemsArray)):
-            # training_data.append({"class": key, "sentence": open(item[2:-2], 'r').read()})
-            training_data.append({"class": key, "sentence": df.checkextension(item[2:-2])})
-        else:
-            item = item[2:-1]
-            if item.endswith(".txt\'"):
-                item = str(item)[:-1]
-            # training_data.append({"class": key, "sentence": open(item, 'r').read()})
-            training_data.append({"class": key, "sentence": df.checkextension(item)})
-        counter +=1
-
-
-print ("%s files in training data" % len(training_data))
-
-words = []
-classes = []
-documents = []
-ignore_words = ['?', '.', ',', '-', '\n', '(', ')', '\"']
-# loop through each sentence in our training data
-for pattern in training_data:
-    # tokenize each word in the sentence
-    w = nltk.word_tokenize(pattern['sentence'])
-    # add to our words list
-    words.extend(w)
-    # add to documents in our corpus
-    documents.append((w, pattern['class']))
-    # add to our classes list
-    if pattern['class'] not in classes:
-        classes.append(pattern['class'])
-
-# stem and lower each word and remove duplicates
-words = [stemmer.stem(w.lower()) for w in words if w not in ignore_words]
-words = list(set(words))
-
-# remove duplicates
-classes = list(set(classes))
-
-print (len(documents), "documents")
-print (len(classes), "classes", classes)
-print (len(words), "unique stemmed words", words)
-
-# create our training data
-training = []
-output = []
-# create an empty array for our output
-output_empty = [0] * len(classes)
-
-# training set, bag of words for each sentence
-for doc in documents:
-    # initialize our bag of words
-    bag = []
-    # list of tokenized words for the pattern
-    pattern_words = doc[0]
-    # stem each word
-    pattern_words = [stemmer.stem(word.lower()) for word in pattern_words]
-    # create our bag of words array
-    for w in words:
-        bag.append(1) if w in pattern_words else bag.append(0)
-
-    training.append(bag)
-    # output is a '0' for each tag and '1' for current tag
-    output_row = list(output_empty)
-    output_row[classes.index(doc[1])] = 1
-    output.append(output_row)
-
-# sample training/output
-i = 0
-w = documents[i][0]
-print ([stemmer.stem(word.lower()) for word in w])
-print (training[i])
-print (output[i])
-
 import numpy as np
 import time
 
@@ -131,16 +42,16 @@ def bow(sentence, words, show_details=False):
         for i, w in enumerate(words):
             if w == s:
                 bag[i] = 1
-                if show_details:
-                    print("found in bag: %s" % w)
+                # if show_details:
+                #     print("found in bag: %s" % w)
 
     return (np.array(bag))
 
 
 def think(sentence, show_details=False):
     x = bow(sentence.lower(), words, show_details)
-    if show_details:
-        print("sentence:", sentence, "\n bow:", x)
+    # if show_details:
+        # print("sentence:", sentence, "\n bow:", x)
     # input layer is our bag of words
     l0 = x
     # matrix multiplication of input and hidden layer
@@ -151,9 +62,10 @@ def think(sentence, show_details=False):
 
 
 def train(X, y, hidden_neurons=10, alpha=1, epochs=50000, dropout=False, dropout_percent=0.5):
-    print("Training with %s neurons, alpha:%s, dropout:%s %s" % (
-    hidden_neurons, str(alpha), dropout, dropout_percent if dropout else ''))
-    print("Input matrix: %sx%s    Output matrix: %sx%s" % (len(X), len(X[0]), 1, len(classes)))
+    # print("Training with %s neurons, alpha:%s, dropout:%s %s" % (
+    # hidden_neurons, str(alpha), dropout, dropout_percent if dropout else ''))
+    # print("Input matrix: %sx%s    Output matrix: %sx%s" % (len(X), len(X[0]), 1, len(classes)))
+    print("Training the network...")
     np.random.seed(1)
 
     last_mean_error = 1
@@ -185,7 +97,8 @@ def train(X, y, hidden_neurons=10, alpha=1, epochs=50000, dropout=False, dropout
         if (j % 10000) == 0 and j > 5000:
             # if this 10k iteration's error is greater than the last iteration, break out
             if np.mean(np.abs(layer_2_error)) < last_mean_error:
-                print("delta after " + str(j) + " iterations:" + str(np.mean(np.abs(layer_2_error))))
+                # print("delta after " + str(j) + " iterations:" + str(np.mean(np.abs(layer_2_error))))
+                print("Still Training ..")
                 last_mean_error = np.mean(np.abs(layer_2_error))
             else:
                 print("break:", np.mean(np.abs(layer_2_error)), ">", last_mean_error)
@@ -226,31 +139,11 @@ def train(X, y, hidden_neurons=10, alpha=1, epochs=50000, dropout=False, dropout
                'classes': classes
                }
     synapse_file = "synapses.json"
-
+    print("Training Completed.")
     with open(synapse_file, 'w') as outfile:
         json.dump(synapse, outfile, indent=4, sort_keys=True)
-    print("saved synapses to:", synapse_file)
+    # print("saved synapses to:", synapse_file)
 
-
-X = np.array(training)
-y = np.array(output)
-
-start_time = time.time()
-
-train(X, y, hidden_neurons=20, alpha=0.1, epochs=100000, dropout=False, dropout_percent=0.2)
-
-elapsed_time = time.time() - start_time
-print ("processing time:", elapsed_time, "seconds")
-
-
-# probability threshold
-ERROR_THRESHOLD = 0.2
-# load our calculated synapse values
-synapse_file = 'synapses.json'
-with open(synapse_file) as data_file:
-    synapse = json.load(data_file)
-    synapse_0 = np.asarray(synapse['synapse0'])
-    synapse_1 = np.asarray(synapse['synapse1'])
 
 def classify(oldPath, sentence, show_details=False):
     results = think(sentence, show_details)
@@ -259,31 +152,143 @@ def classify(oldPath, sentence, show_details=False):
     results.sort(key=lambda x: x[1], reverse=True)
     return_results =[[classes[r[0]],r[1]] for r in results]
     print (oldPath + "\nClassification: %s" % (return_results))
-    # return return_results
-    # Post Classification Processing
-    for item in return_results:
-        for word in item:
-            if(type(word) == str):
-                processResults(word, oldPath)
+    for categories in return_results:
+        for category in categories:
+            if(type(category) == str):
+                return category
 
-def processResults(fName, oldPath):
+
+def processResults(fName):
     rootDir = '/Users/CaoimheHarvey/Desktop/Mock_Environment'
     for dirName, subdirList, fileList in os.walk(rootDir):
         folders = dirName.split('/')
         folderName = folders[len(folders) - 1]
         if(folderName == fName):
             newPath = dirName
-            bashCommand = "mv " + oldPath + " " + newPath
-            import subprocess
-            process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-            output, error = process.communicate()
-            print(output, error)
-            print("The file can be found at: " , newPath)
-            # Terminate the process as file is to be allocated to only 1 folder
-            # the one which it most closely matches
-            exit(0)
+            return newPath
 
-print()
-file = "/Users/CaoimheHarvey/desktop/test_files/Impressionism.txt"
-# res = classify(file, open(file, 'r').read())
-res = classify(file, df.checkextension(file))
+
+
+def initialization():
+    # Empty dictionary of all text-file paths in the directory and their category
+    allTextFiles = defaultdict(list)
+    # Set the directory you want to start from
+    rootDir = '/Users/CaoimheHarvey/Desktop/Mock_Environment'
+    for dirName, subdirList, fileList in os.walk(rootDir):
+        folders = dirName.split('/')
+        folderName = folders[len(folders) - 1]
+        for fname in fileList:
+            if fname.endswith(('.txt', '.docx')):
+                allTextFiles[folderName].append(dirName + "/" + fname)
+    training_data = []
+    # Parsing the value list into string to be stored with the key
+    counter = 0
+
+    for key, value in allTextFiles.items():
+        itemsArray = (str(value).split(","))
+        for item in itemsArray:
+            if (counter + 1 == len(itemsArray)):
+                # training_data.append({"class": key, "sentence": open(item[2:-2], 'r').read()})
+                training_data.append({"class": key, "sentence": df.checkextension(item[2:-2])})
+            else:
+                item = item[2:-1]
+                if item.endswith(".txt\'"):
+                    item = str(item)[:-1]
+                # training_data.append({"class": key, "sentence": open(item, 'r').read()})
+                training_data.append({"class": key, "sentence": df.checkextension(item)})
+            counter += 1
+    global words, classes
+
+    # print("%s files in training data" % len(training_data))
+    words = []
+    classes = []
+    documents = []
+    ignore_words = ['?', '.', ',', '-', '\n', '(', ')', '\"']
+    # loop through each sentence in our training data
+    for pattern in training_data:
+        # tokenize each word in the sentence
+        w = nltk.word_tokenize(pattern['sentence'])
+        # add to our words list
+        words.extend(w)
+        # add to documents in our corpus
+        documents.append((w, pattern['class']))
+        # add to our classes list
+        if pattern['class'] not in classes:
+            classes.append(pattern['class'])
+
+    # stem and lower each word and remove duplicates
+    words = [stemmer.stem(w.lower()) for w in words if w not in ignore_words]
+    words = list(set(words))
+
+    # remove duplicates
+    classes = list(set(classes))
+
+    print(len(documents), "documents")
+    print(len(classes), "categories", classes)
+    # print(len(words), "unique stemmed words", words)
+
+    # create our training data
+    training = []
+    output = []
+    # create an empty array for our output
+    output_empty = [0] * len(classes)
+
+    # training set, bag of words for each sentence
+    for doc in documents:
+        # initialize our bag of words
+        bag = []
+        # list of tokenized words for the pattern
+        pattern_words = doc[0]
+        # stem each word
+        pattern_words = [stemmer.stem(word.lower()) for word in pattern_words]
+        # create our bag of words array
+        for w in words:
+            bag.append(1) if w in pattern_words else bag.append(0)
+
+        training.append(bag)
+        # output is a '0' for each tag and '1' for current tag
+        output_row = list(output_empty)
+        output_row[classes.index(doc[1])] = 1
+        output.append(output_row)
+
+    # sample training/output
+    i = 0
+    w = documents[i][0]
+    # print([stemmer.stem(word.lower()) for word in w])
+    # print(training[i])
+    # print(output[i])
+
+    X = np.array(training)
+    y = np.array(output)
+
+    start_time = time.time()
+
+    train(X, y, hidden_neurons=20, alpha=0.1, epochs=100000, dropout=False, dropout_percent=0.2)
+
+    elapsed_time = time.time() - start_time
+    print("\nprocessing time:", elapsed_time, "seconds\n")
+
+    # probability threshold
+    global ERROR_THRESHOLD
+    ERROR_THRESHOLD = 0.2
+    # load our calculated synapse values
+    synapse_file = 'synapses.json'
+
+    global synapse_0, synapse_1
+    with open(synapse_file) as data_file:
+        synapse = json.load(data_file)
+        synapse_0 = np.asarray(synapse['synapse0'])
+        synapse_1 = np.asarray(synapse['synapse1'])
+
+
+def performClassification(file_path):
+    initialization()
+    # classify(file_path, df.checkextension(file_path))
+    newCategory = classify(file_path, df.checkextension(file_path))
+    newPath = processResults(newCategory)
+    if newPath is None:
+        print("Could not find an appropiate folder")
+        return ""
+    else:
+        print("Old Path is: \t"+file_path+"\nNew Path is: \t"+newPath)
+        return newPath

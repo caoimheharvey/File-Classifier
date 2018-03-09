@@ -4,6 +4,10 @@ __author__ = "Caoimhe Harvey"
 import tkinter as tk
 from tkinter.ttk import *
 from tkinter import filedialog
+import NLPModule as nlp
+import duplicationFunctions as df
+from tkinter import messagebox
+import subprocess
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -11,7 +15,6 @@ class Application(tk.Frame):
         self.pack()
         self.create_widgets()
 
-        
     def create_widgets(self):
         # Intro
         introduction = "This application is designed to help you manage and organize your" \
@@ -31,7 +34,12 @@ class Application(tk.Frame):
         # Main widgets for file classifier
         Label(tab3, text="File Classification Module").pack()
         Label(tab3, text = "ONLY select .txt or .docx files").pack()
-        Button(tab3, text = "Select File(s)").pack()
+        Button(tab3, text = "Select File(s)", command = self.selectFile).pack()
+        self.selectedFile = tk.Label(tab3)
+        self.selectedFile.pack()
+        Button(tab3, text="Find Appropiate Folder", command=self.findAppropiateFolder).pack()
+        self.resultLabel = Label(tab3)
+        self.resultLabel.pack()
 
 
     def selectDirectory(self):
@@ -40,12 +48,36 @@ class Application(tk.Frame):
 
     def runDuplications(self):
         self.processingLabel.config(text="Processing..")
-        import duplicationFunctions as df
         images, textfiles = df.traverse(self.chosenDirectory.cget("text"))
-        window = tk.Toplevel(root)
         self.processingLabel.config(text="")
         #TODO: Parsing and formatting on the returned values
         Label(tab2, text= textfiles).pack()
+
+    def selectFile(self):
+        file_path = filedialog.askopenfilename(filetypes = (("docx files","*.docx"),("text files","*.txt")))
+        self.selectedFile.config(text=file_path)
+
+    def findAppropiateFolder(self):
+        global oldPath, newPath
+        oldPath = self.selectedFile.cget(("text"))
+        newPath = nlp.performClassification(oldPath)
+        if newPath != "":
+            self.checkMove(oldPath, newPath)
+        else:
+            self.resultLabel.config(text = "Could not find appropiate folder")
+
+    def checkMove(self, oldPath, newPath):
+        answer = messagebox.askyesno("Move file", "Would you like to move\n\n" + oldPath + "\n\nto the new location at:\n\n" + newPath)
+        if answer:
+            movingCommand = "mv " + oldPath + " " + newPath
+            subprocess.call(movingCommand, shell=True)
+            openNewLocation = messagebox.askyesno("New File Location",
+                                                  "File is now located at:\n" + newPath + "\nWould you like to Reveal File in Finder?")
+            if openNewLocation:
+                subprocess.call(["open", "-R", newPath])
+            self.resultLabel.config(newPath)
+        else:
+            messagebox.showinfo("Action Cancelled", "File will remain at\n"+ oldPath)
 
 
 # **********************************
@@ -56,7 +88,7 @@ class Application(tk.Frame):
 root = tk.Tk()
 root.title("Final Year Project")
 root.update()
-root.geometry('600x400')
+root.geometry('600x200')
 note = Notebook(root)
 
 # Set up main window
