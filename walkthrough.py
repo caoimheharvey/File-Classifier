@@ -28,8 +28,6 @@ class Application(tk.Frame):
         self.chosenDirectory.pack()
 
         Button(tab2, text="Find Duplicates", command=self.runDuplications).pack()
-        self.processingLabel = tk.Label(tab2)
-        self.processingLabel.pack()
 
         # Main widgets for file classifier
         Label(tab3, text="File Classification Module").pack()
@@ -47,11 +45,56 @@ class Application(tk.Frame):
         self.chosenDirectory.config(text= directory)
 
     def runDuplications(self):
-        self.processingLabel.config(text="Processing..")
+        global images, textfiles
         images, textfiles = df.traverse(self.chosenDirectory.cget("text"))
-        self.processingLabel.config(text="")
         #TODO: Parsing and formatting on the returned values
-        Label(tab2, text= textfiles).pack()
+        self.duplicationResultsWindow()
+
+
+    # New Window Definition
+    def duplicationResultsWindow(self):
+        global window1
+        window1 = tk.Toplevel(note)
+        window1.title("Duplication Finder Results")
+        # window1.geometry("600x600")
+        global notebook_tabs, tab_names
+        notebook_tabs = []
+        tab_names = []
+        for key, value in textfiles.items():
+            tab_names.append(key)
+        self.createTabs()
+
+        for tab in range(len(notebook_tabs)):
+            for key, value in textfiles.items():
+                if(key == tab_names[tab]):
+                    text=df.checkextension(key)
+                    Label(notebook_tabs[tab], text=text[:255]).pack()
+                    # Label(notebook_tabs[tab], text=key).pack()
+                    var = tk.IntVar()
+                    Checkbutton(notebook_tabs[tab], text = key, variable = var).pack()
+                    for v in value:
+                        var2 = tk.IntVar()
+                        # Label(notebook_tabs[tab], text = v).pack()
+                        Checkbutton(notebook_tabs[tab], text=v, variable=var2).pack()
+        Button(window1, text = "Remove Selected Files", command = self.removeFiles).pack(side="right")
+        Button(window1, text = "Move Selected Files to a folder", command = self.groupFilesinFolder).pack(side="right")
+
+
+    def removeFiles(self):
+        pass
+
+    def groupFilesinFolder(self):
+        pass
+
+    def createTabs(self):
+        style = Style(window1)
+        style.configure('lefttab.TNotebook', tabposition='wn')
+        note = Notebook(window1, style='lefttab.TNotebook')
+        for tab in tab_names:
+            t = Frame(note)
+            notebook_tabs.append(t)
+            note.add(t, text=tab)
+        note.pack()
 
     def selectFile(self):
         file_path = filedialog.askopenfilename(filetypes = (("docx files","*.docx"),("text files","*.txt")))

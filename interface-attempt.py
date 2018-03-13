@@ -2,7 +2,7 @@
 __author__ = "Caoimhe Harvey"
 import tkinter as tk
 from tkinter.ttk import *
-import collections
+from collections import defaultdict
 
 notebook_tabs = []
 class Application(tk.Frame):
@@ -14,23 +14,32 @@ class Application(tk.Frame):
     def create_widgets(self):
         for tab in range(len(notebook_tabs)):
             Label(notebook_tabs[tab], text = "This is " + tab_names[tab]).pack()
-            for key, value in list_of_tabs.items():
+            for key, value in allTabs.items():
                 if(key == tab_names[tab]):
-                    Label(notebook_tabs[tab], text = value).pack()
+                    for v in value:
+                        Label(notebook_tabs[tab], text = v).pack()
 
-list_of_tabs = {'Tab1':'string1', 'Tab2':'string2', 'Tab3':'string3', 'Tab4':'string4'}
+
+allTabs = defaultdict(list)
+allTabs['Tab1'].append('string1')
+allTabs['Tab1'].append('string1.1')
+allTabs['Tab2'].append('string2')
+allTabs['Tab3'].append('string3')
+allTabs['Tab3'].append('string3.1')
+print(allTabs)
 tab_names = []
-for key, value in list_of_tabs.items():
+for key, value in allTabs.items():
     tab_names.append(key)
 print(tab_names)
 
 def createTabs():
-    note = Notebook(root)
+    style = Style(root)
+    style.configure('lefttab.TNotebook', tabposition='ws')
+    note = Notebook(root, style='lefttab.TNotebook')
     for tab in tab_names:
         t = Frame(note)
         notebook_tabs.append(t)
         note.add(t, text = tab)
-
     note.pack()
 
 
