@@ -50,13 +50,15 @@ class Application(tk.Frame):
     # New Window Definition
     def duplicationResultsWindow(self):
         window1 = tk.Toplevel(note)
+        window1.title("Duplication Finder Results")
         window1.geometry("600x600")
-
+        for key, value in textfiles.items():
+            Button(window1, text = key).pack()
+            for v in value:
+                Label(window1, text = v).pack()
         # TODO: Parsing and formatting on the returned values
-        l = Label(window1, text = "Click here to reveal in finder")
-        l.bind("<Button-1>", self.openFile)
-        l.pack()
 
+    # open file label in finder
     def openFile(self, file_to_show):
         file_to_show = "/Users/CaoimheHarvey/dropbox/year4/fyp/file-classifier/text-files/file1.txt"
         import subprocess
