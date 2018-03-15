@@ -47,7 +47,6 @@ class Application(tk.Frame):
     def runDuplications(self):
         global images, textfiles
         images, textfiles = df.traverse(self.chosenDirectory.cget("text"))
-        #TODO: Parsing and formatting on the returned values
         self.duplicationResultsWindow()
 
 
@@ -93,10 +92,24 @@ class Application(tk.Frame):
         print("\n")
 
     def removeFiles(self):
-        pass
+        for i in range(len(variables)):
+            if variables[i].get() == 1:
+                bashCommand = "mv " + checkbox_string[i] + " /Users/CaoimheHarvey/.Trash"
+                process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+                process.communicate()
+        messagebox.showinfo("Files moved to trash", "All selected files have been have\nbeen moved to the trash.")
 
     def groupFilesinFolder(self):
-        pass
+        messagebox.showinfo("Select Root Folder", "In the following window, please select\nthe root folder you want to \nmove all "
+                                                  "selected files to.")
+        newRootFolder = filedialog.askdirectory()
+        folderName = "newFolder"
+        # subprocess.Popen(("mkdir " + folderName).split()).communicate()
+        newPath = newRootFolder + "/" + folderName
+        for i in range(len(variables)):
+            if variables[i].get() == 1:
+                subprocess.call(["./moveToNewFolder.sh", 'newRootFolder', 'folderName', 'checkbox_string[i]', 'newPath'])
+        subprocess.call(["open", "-R", newRootFolder+"/"+folderName])
 
     def createTabs(self):
         style = Style(window1)
