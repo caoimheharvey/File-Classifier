@@ -18,22 +18,18 @@ __author__ = "Caoimhe Harvey"
 #       * rootDir: directory to serve as main node. All subdirectories are scanned
 #
 # ***********************************************************************
-def traverse(rootDir):
+def findDuplicates(rootDir):
     import os
     from collections import defaultdict
     import time
 
     start = time.time()
-    imageTable = defaultdict(list)
     list_of_text_files = []
 
     for dirName, subdirList, fileList in os.walk(rootDir, topdown = False):
         for fname in fileList:
             if fname.lower().endswith(('.txt', '.docx')):
                 list_of_text_files.append(dirName + "/" + fname)
-            elif fname.lower().endswith(('.jpg', '.jpeg', '.png')):
-                hashedImage = getHashValue(dirName + "/" + fname)
-                imageTable[hashedImage].append(dirName + "/" + fname)
             else:
                 continue
         if len(subdirList) > 0:
@@ -42,42 +38,12 @@ def traverse(rootDir):
     similar_text_files = mainFileComp(list_of_text_files)
 
     print("\n\n----------------- DUPLICATES --------------------")
-    print("\n\t\t-------- Images --------")
-    for key, value in imageTable.items():
-        if len(value) > 1:
-            print(key, value)
-
-    print("\n\t\t------ Text Files ------")
     for key, value in similar_text_files.items():
         print(key, value)
     print("\n\nTotal Time: " , time.time() - start)
     print("---------------- PROGRAM ENDED ------------------")
 
-    return imageTable, similar_text_files
-
-# ***********************************************************************
-#
-#   Function: getHashValue
-#
-#   Generates the hash value of a file
-#
-#   Parameters:
-#       * file: file from which a hash value will be generated
-#
-#   Returns:
-#       * hash value
-#
-# ***********************************************************************
-def getHashValue(file):
-    import hashlib
-    BUF_SIZE = 65536
-    md5 = hashlib.md5()
-    with open(file, 'rb') as f:
-        buf = f.read(BUF_SIZE)
-        while len(buf) > 0:
-            md5.update(buf)
-            buf = f.read(BUF_SIZE)
-    return md5.hexdigest()
+    return similar_text_files
 
 
 # ***********************************************************************
@@ -109,7 +75,7 @@ def getCosine(vec1, vec2):
 
 # ***********************************************************************
 #
-#   Function: text2Vector
+#   Function: textToVector
 #
 #   Converts the text from a document to a mathematical value
 #
@@ -120,32 +86,13 @@ def getCosine(vec1, vec2):
 #       * vector: numerical value associated with the string
 #
 # ***********************************************************************
-def text2Vector(text):
+def textToVector(text):
     from collections import Counter
     import re
     WORD = re.compile(r'\w+')
     words = WORD.findall(text)
     return Counter(words)
 
-# ***********************************************************************
-#
-#   Function: RunBashCommand
-#
-#   Function used to run a command from bash
-#
-#   Parameters:
-#       * bashCommand: command desired to run
-#
-#   Returns:
-#       * output: if empty or null then its a success
-#
-# ***********************************************************************
-
-def runBashCommand(bashCommand):
-    import subprocess
-    process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-    output, error = process.communicate()
-    return output
 
 # ***********************************************************************
 #

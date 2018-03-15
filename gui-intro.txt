@@ -1,0 +1,2 @@
+This application is designed to make organizing your harddrive, and keeping track of your
+files simpler. 

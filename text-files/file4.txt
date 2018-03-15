@@ -1,2 +1,0 @@
-Testing Word documents on my fyp, i will be testing how the system reads the files with
-different text extensions throughout the document

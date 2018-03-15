@@ -1,4 +1,12 @@
-# https://machinelearnings.co/text-classification-using-neural-networks-f5cd7b8765c6
+# ************************************************************************************
+#
+#  Most of the code for this file was found at:
+#
+#  https://machinelearnings.co/text-classification-using-neural-networks-f5cd7b8765c6
+#
+#  Any original code will be prefaced with __author__="Caoimhe Harvey"
+#
+# ************************************************************************************
 
 # use natural language toolkit
 import nltk
@@ -7,7 +15,7 @@ import json
 import datetime
 import os
 from collections import defaultdict
-import duplicationFunctions as df
+import findduplicates as df
 stemmer = LancasterStemmer()
 import numpy as np
 import time
@@ -159,6 +167,7 @@ def classify(oldPath, sentence, show_details=False):
 
 
 def processResults(fName):
+    #__author__ = "Caoimhe Harvey"
     rootDir = '/Users/CaoimheHarvey/Desktop/Mock_Environment'
     for dirName, subdirList, fileList in os.walk(rootDir):
         folders = dirName.split('/')
@@ -282,8 +291,8 @@ def initialization():
 
 
 def performClassification(file_path):
+    # __author__= "Caoimhe Harvey"
     initialization()
-    # classify(file_path, df.checkextension(file_path))
     newCategory = classify(file_path, df.checkextension(file_path))
     newPath = processResults(newCategory)
     if newPath is None:

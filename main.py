@@ -1,11 +1,21 @@
 #!/usr/bin/env python
+# *************************************************************
+#
+#   File: main.py
+#
+#   This file runs the interface for the final year project. From the interface the user
+#   can access the two modules: file classification, and locating duplicate (or similar)
+#   files.
+#
+# *************************************************************
+
 __author__ = "Caoimhe Harvey"
 
 import tkinter as tk
 from tkinter.ttk import *
 from tkinter import filedialog
-import NLPModule as nlp
-import duplicationFunctions as df
+import fileclassification as nlp
+import findduplicates as df
 from tkinter import messagebox
 import subprocess
 
@@ -17,8 +27,7 @@ class Application(tk.Frame):
 
     def create_widgets(self):
         # Intro
-        introduction = "This application is designed to help you manage and organize your" \
-                       " harddrive in an\nefficient manner."
+        introduction = df.checkextension('./gui-intro.txt')
         Label(tab1, text=introduction).pack()
 
         # Main Widgets for Duplication: Tab2
@@ -27,7 +36,7 @@ class Application(tk.Frame):
         self.chosenDirectory = tk.Label(tab2)
         self.chosenDirectory.pack()
 
-        Button(tab2, text="Find Duplicates", command=self.runDuplications).pack()
+        Button(tab2, text="Find Duplicates", command=self.findDuplicates).pack()
 
         # Main widgets for file classifier
         Label(tab3, text="File Classification Module").pack()
@@ -39,23 +48,28 @@ class Application(tk.Frame):
         self.resultLabel = Label(tab3)
         self.resultLabel.pack()
 
-
+    # *************************************************************
+    #
+    #   Functions for Tab 2: Duplicate locator GUI
+    #
+    # *************************************************************
     def selectDirectory(self):
         directory = filedialog.askdirectory()
         self.chosenDirectory.config(text= directory)
 
-    def runDuplications(self):
+    def findDuplicates(self):
         global images, textfiles
-        images, textfiles = df.traverse(self.chosenDirectory.cget("text"))
+        textfiles = df.findDuplicates(self.chosenDirectory.cget("text"))
         self.duplicationResultsWindow()
 
 
-    # New Window Definition
+    #
+    #   Duplication Results Window
+    #
     def duplicationResultsWindow(self):
         global window1
         window1 = tk.Toplevel(note)
         window1.title("Duplication Finder Results")
-        # window1.geometry("600x600")
         global notebook_tabs, tab_names, variables, checkbox_string
         notebook_tabs = []
         tab_names = []
@@ -64,16 +78,21 @@ class Application(tk.Frame):
         self.createTabs()
         variables = []
         checkbox_string = []
+
         for tab in range(len(notebook_tabs)):
             for key, value in textfiles.items():
                 if(key == tab_names[tab]):
+                    # Preview the duplicated file
                     text=df.checkextension(key)
+                    Label(notebook_tabs[tab], text = "File Preview:\n\n", font = ('Helvetica', 16)).pack()
                     Label(notebook_tabs[tab], text=text[:255]).pack()
-                    # Label(notebook_tabs[tab], text=key).pack()
+                    # Output the paths relating to the file
                     var = tk.IntVar()
                     variables.append(var)
                     checkbox_string.append(key)
+                    Label(notebook_tabs[tab], text="\n\nFiles with this text or similar text are:\n",font = ('Helvetica', 16)).pack()
                     Checkbutton(notebook_tabs[tab], text = key, variable = var).pack()
+
                     for v in value:
                         var = tk.IntVar()
                         variables.append(var)
@@ -82,34 +101,6 @@ class Application(tk.Frame):
 
         Button(window1, text = "Remove Selected Files", command = self.removeFiles).pack(side="right")
         Button(window1, text = "Move Selected Files to a folder", command = self.groupFilesinFolder).pack(side="right")
-        Button(window1, text = "Show selected files", command = self.showSelected).pack(side="right")
-
-    # TODO: Finish the functions
-    def showSelected(self):
-        for i in range(len(variables)):
-            if variables[i].get() == 1:
-                print(str(i) + ":\t" + str(variables[i].get()) + "\t" + checkbox_string[i])
-        print("\n")
-
-    def removeFiles(self):
-        for i in range(len(variables)):
-            if variables[i].get() == 1:
-                bashCommand = "mv " + checkbox_string[i] + " /Users/CaoimheHarvey/.Trash"
-                process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-                process.communicate()
-        messagebox.showinfo("Files moved to trash", "All selected files have been have\nbeen moved to the trash.")
-
-    def groupFilesinFolder(self):
-        messagebox.showinfo("Select Root Folder", "In the following window, please select\nthe root folder you want to \nmove all "
-                                                  "selected files to.")
-        newRootFolder = filedialog.askdirectory()
-        folderName = "newFolder"
-        # subprocess.Popen(("mkdir " + folderName).split()).communicate()
-        newPath = newRootFolder + "/" + folderName
-        for i in range(len(variables)):
-            if variables[i].get() == 1:
-                subprocess.call(["./moveToNewFolder.sh", 'newRootFolder', 'folderName', 'checkbox_string[i]', 'newPath'])
-        subprocess.call(["open", "-R", newRootFolder+"/"+folderName])
 
     def createTabs(self):
         style = Style(window1)
@@ -120,6 +111,32 @@ class Application(tk.Frame):
             notebook_tabs.append(t)
             note.add(t, text=tab)
         note.pack()
+
+    def removeFiles(self):
+        for i in range(len(variables)):
+            if variables[i].get() == 1:
+                bashCommand = "mv " + checkbox_string[i] + " /Users/CaoimheHarvey/.Trash"
+                process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+                process.communicate()
+        messagebox.showinfo("Files moved to trash", "All selected files have been have\nbeen moved to the trash.")
+
+
+    def groupFilesinFolder(self):
+        messagebox.showinfo("Select Root Folder", "In the following window, please select\nthe root folder you want to \nmove all "
+                                                  "selected files to.")
+        newRootFolder = filedialog.askdirectory()
+        folderName = "newFolder"
+        newPath = newRootFolder + "/" + folderName
+        for i in range(len(variables)):
+            if variables[i].get() == 1:
+                subprocess.call(['./moveToNewFolder.sh', newRootFolder, folderName, checkbox_string[i], newPath])
+        subprocess.call(["open", "-R", newPath])
+
+    # *************************************************************
+    #
+    #   Functions for Tab 3: File Classifier GUI Functionality
+    #
+    # *************************************************************
 
     def selectFile(self):
         file_path = filedialog.askopenfilename(filetypes = (("docx files","*.docx"),("text files","*.txt")))
