@@ -1,0 +1,8 @@
+Newton's laws of motion are three physical laws that, together, laid the foundation for classical mechanics. They describe the relationship between a body and the forces acting upon it, and its motion in response to those forces. More precisely, the first law defines the force qualitatively, the second law offers a quantitative measure of the force, and the third asserts that a single isolated force doesn't exist. These three laws have been expressed in several ways, over nearly three centuries,[1] and can be summarised as follows:
+
+First law:	In an inertial frame of reference, an object either remains at rest or continues to move at a constant velocity, unless acted upon by a force.
+Second law:	In an inertial reference frame, the vector sum of the forces F on an object is equal to the mass m of that object multiplied by the acceleration a of the object: F = ma. 
+Third law:	When one body exerts a force on a second body, the second body simultaneously exerts a force equal in magnitude and opposite in direction on the first body.
+The three laws of motion were first compiled by Isaac Newton in his Philosophiæ Naturalis Principia Mathematica (Mathematical Principles of Natural Philosophy), first published in 1687. Newton used them to explain and investigate the motion of many physical objects and systems. For example, in the third volume of the text, Newton showed that these laws of motion, combined with his law of universal gravitation, explained Kepler's laws of planetary motion.
+
+A fourth law is often also described in the bibliography, which states that forces add up like vectors, that is, that forces obey the principle of superposition.

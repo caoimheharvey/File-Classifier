@@ -29,18 +29,22 @@ class Application(tk.Frame):
         # Intro
         introduction = df.checkextension('./gui-intro.txt')
         Label(tab1, text=introduction).pack()
-
+        #
         # Main Widgets for Duplication: Tab2
+        #
+        string="This tab allows you to locate files in a directory which are 70% or more similar."
+        Label(tab2, text = string).pack()
         Button(tab2, text = "Choose a Directory", command=self.selectDirectory).pack()
 
         self.chosenDirectory = tk.Label(tab2)
         self.chosenDirectory.pack()
 
         Button(tab2, text="Find Duplicates", command=self.findDuplicates).pack()
-
-        # Main widgets for file classifier
-        Label(tab3, text="File Classification Module").pack()
-        Label(tab3, text = "ONLY select .txt or .docx files").pack()
+        #
+        # Main widgets for Tab3
+        #
+        Label(tab3, text="This tab is designed to help you organize your files a lot easier.\nSimply select a file you wish to move.").pack()
+        Label(tab3, text = "Then let the system find the best suited folder for the chosen file based\non the content in that file.").pack()
         Button(tab3, text = "Select File(s)", command = self.selectFile).pack()
         self.selectedFile = tk.Label(tab3)
         self.selectedFile.pack()
@@ -70,6 +74,7 @@ class Application(tk.Frame):
         global window1
         window1 = tk.Toplevel(note)
         window1.title("Duplication Finder Results")
+        Label(window1, text = "Use the checkboxes to select all the files you wish to remove. Then click \"Delete\"").pack()
         global notebook_tabs, tab_names, variables, checkbox_string
         notebook_tabs = []
         tab_names = []
@@ -100,7 +105,6 @@ class Application(tk.Frame):
                         Checkbutton(notebook_tabs[tab], text=v, variable=var).pack()
 
         Button(window1, text = "Remove Selected Files", command = self.removeFiles).pack(side="right")
-        Button(window1, text = "Move Selected Files to a folder", command = self.groupFilesinFolder).pack(side="right")
 
     def createTabs(self):
         style = Style(window1)
@@ -108,8 +112,10 @@ class Application(tk.Frame):
         note = Notebook(window1, style='lefttab.TNotebook')
         for tab in tab_names:
             t = Frame(note)
+            fullpath = tab.split('/')
+            actualtab = fullpath[len(fullpath)-1]
             notebook_tabs.append(t)
-            note.add(t, text=tab)
+            note.add(t, text=actualtab)
         note.pack()
 
     def removeFiles(self):
@@ -118,6 +124,7 @@ class Application(tk.Frame):
                 bashCommand = "mv " + checkbox_string[i] + " /Users/CaoimheHarvey/.Trash"
                 process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
                 process.communicate()
+
         messagebox.showinfo("Files moved to trash", "All selected files have been have\nbeen moved to the trash.")
 
 
@@ -152,7 +159,12 @@ class Application(tk.Frame):
             self.resultLabel.config(text = "Could not find appropiate folder")
 
     def checkMove(self, oldPath, newPath):
-        answer = messagebox.askyesno("Move file", "Would you like to move\n\n" + oldPath + "\n\nto the new location at:\n\n" + newPath)
+        old_Path = oldPath.split('/')
+        old = str(old_Path[len(old_Path)-2]) + "/" +str(old_Path[len(old_Path)-1])
+        new_Path = newPath.split('/')
+        new = str(new_Path[len(new_Path)-2]) + "/" +str(old_Path[len(old_Path)-1])
+        print(old, new)
+        answer = messagebox.askyesno("Move file", "Would you like to move\n\n" + old + "\n\nto the new location at:\n\n" + new)
         if answer:
             movingCommand = "mv " + oldPath + " " + newPath
             subprocess.call(movingCommand, shell=True)

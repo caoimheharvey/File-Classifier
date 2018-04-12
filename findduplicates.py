@@ -9,7 +9,7 @@ __author__ = "Caoimhe Harvey"
 
 # ***********************************************************************
 #
-#   Function: Traverse
+#   Function: findDuplicates
 #
 #   Goes through all directories and finds duplicate images and text files.
 #       Main part of the duplication finding algorithm. Establishes the files to be compared.
@@ -20,7 +20,6 @@ __author__ = "Caoimhe Harvey"
 # ***********************************************************************
 def findDuplicates(rootDir):
     import os
-    from collections import defaultdict
     import time
 
     start = time.time()
@@ -39,7 +38,10 @@ def findDuplicates(rootDir):
 
     print("\n\n----------------- DUPLICATES --------------------")
     for key, value in similar_text_files.items():
-        print(key, value)
+        print("\n",key)
+        for v in value:
+            print("\t\t",v)
+
     print("\n\nTotal Time: " , time.time() - start)
     print("---------------- PROGRAM ENDED ------------------")
 
@@ -139,14 +141,15 @@ def compare(file, file_path, list):
     counter = 0
     for key, value in list.items():
         if file_path in list.keys():
+            print("\t\tSKIP\n")
             return "skip",""
         else:
-            if SequenceMatcher(None, file, checkextension(key)).ratio() > 0.7:
+            ratio = SequenceMatcher(None, file, checkextension(key)).ratio()
+            if ratio > 0.7:
+                print(file_path, "\n\tMATCHES WITH ", key, "\n\tRATIO: ", ratio,"\n" )
                 return "add", key
             elif counter != list_len:
                 continue
-            elif counter == list_len:
-                return "new", ""
 
         counter += 1
     return "new", ""

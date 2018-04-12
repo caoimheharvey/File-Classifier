@@ -33,6 +33,7 @@ def sigmoid_output_to_derivative(output):
 
 
 def clean_up_sentence(sentence):
+    print("CLEAN UP SENTENCE")
     # tokenize the pattern
     sentence_words = nltk.word_tokenize(sentence)
     # stem each word
@@ -50,13 +51,14 @@ def bow(sentence, words, show_details=False):
         for i, w in enumerate(words):
             if w == s:
                 bag[i] = 1
-                # if show_details:
-                #     print("found in bag: %s" % w)
+                if show_details:
+                    print("found in bag: %s" % w)
 
     return (np.array(bag))
 
 
 def think(sentence, show_details=False):
+    print("THINK")
     x = bow(sentence.lower(), words, show_details)
     # if show_details:
         # print("sentence:", sentence, "\n bow:", x)
@@ -70,10 +72,11 @@ def think(sentence, show_details=False):
 
 
 def train(X, y, hidden_neurons=10, alpha=1, epochs=50000, dropout=False, dropout_percent=0.5):
-    # print("Training with %s neurons, alpha:%s, dropout:%s %s" % (
-    # hidden_neurons, str(alpha), dropout, dropout_percent if dropout else ''))
-    # print("Input matrix: %sx%s    Output matrix: %sx%s" % (len(X), len(X[0]), 1, len(classes)))
-    print("Training the network...")
+    print("TRAIN")
+    print("Training with %s neurons, alpha:%s, dropout:%s %s" % (
+    hidden_neurons, str(alpha), dropout, dropout_percent if dropout else ''))
+    print("Input matrix: %sx%s    Output matrix: %sx%s" % (len(X), len(X[0]), 1, len(classes)))
+    # print("Training the network...")
     np.random.seed(1)
 
     last_mean_error = 1
@@ -105,8 +108,8 @@ def train(X, y, hidden_neurons=10, alpha=1, epochs=50000, dropout=False, dropout
         if (j % 10000) == 0 and j > 5000:
             # if this 10k iteration's error is greater than the last iteration, break out
             if np.mean(np.abs(layer_2_error)) < last_mean_error:
-                # print("delta after " + str(j) + " iterations:" + str(np.mean(np.abs(layer_2_error))))
-                print("Still Training ..")
+                print("delta after " + str(j) + " iterations:" + str(np.mean(np.abs(layer_2_error))))
+                # print("Still Training ..")
                 last_mean_error = np.mean(np.abs(layer_2_error))
             else:
                 print("break:", np.mean(np.abs(layer_2_error)), ">", last_mean_error)
@@ -147,13 +150,14 @@ def train(X, y, hidden_neurons=10, alpha=1, epochs=50000, dropout=False, dropout
                'classes': classes
                }
     synapse_file = "synapses.json"
-    print("Training Completed.")
+    # print("Training Completed.")
     with open(synapse_file, 'w') as outfile:
         json.dump(synapse, outfile, indent=4, sort_keys=True)
-    # print("saved synapses to:", synapse_file)
+    print("saved synapses to:", synapse_file)
 
 
 def classify(oldPath, sentence, show_details=False):
+    print("CLASSIFY")
     results = think(sentence, show_details)
 
     results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD ]
@@ -167,8 +171,9 @@ def classify(oldPath, sentence, show_details=False):
 
 
 def processResults(fName):
+    print("PROCESS RESULTS")
     #__author__ = "Caoimhe Harvey"
-    rootDir = '/Users/CaoimheHarvey/Desktop/Mock_Environment'
+    rootDir = '/Users/CaoimheHarvey/Dropbox/Year4/FYP/File-Classifier/Testing_Environments/ENV_1'
     for dirName, subdirList, fileList in os.walk(rootDir):
         folders = dirName.split('/')
         folderName = folders[len(folders) - 1]
@@ -177,12 +182,13 @@ def processResults(fName):
             return newPath
 
 
-
 def initialization():
+    print("INITIALIZATION")
     # Empty dictionary of all text-file paths in the directory and their category
     allTextFiles = defaultdict(list)
     # Set the directory you want to start from
-    rootDir = '/Users/CaoimheHarvey/Desktop/Mock_Environment'
+    rootDir = '/Users/CaoimheHarvey/Dropbox/Year4/FYP/File-Classifier/Testing_Environments/ENV_1'
+
     for dirName, subdirList, fileList in os.walk(rootDir):
         folders = dirName.split('/')
         folderName = folders[len(folders) - 1]
@@ -197,18 +203,16 @@ def initialization():
         itemsArray = (str(value).split(","))
         for item in itemsArray:
             if (counter + 1 == len(itemsArray)):
-                # training_data.append({"class": key, "sentence": open(item[2:-2], 'r').read()})
                 training_data.append({"class": key, "sentence": df.checkextension(item[2:-2])})
             else:
                 item = item[2:-1]
                 if item.endswith(".txt\'"):
                     item = str(item)[:-1]
-                # training_data.append({"class": key, "sentence": open(item, 'r').read()})
                 training_data.append({"class": key, "sentence": df.checkextension(item)})
             counter += 1
     global words, classes
 
-    # print("%s files in training data" % len(training_data))
+    print("%s files in training data" % len(training_data))
     words = []
     classes = []
     documents = []
@@ -234,7 +238,7 @@ def initialization():
 
     print(len(documents), "documents")
     print(len(classes), "categories", classes)
-    # print(len(words), "unique stemmed words", words)
+    print(len(words), "unique stemmed words", words)
 
     # create our training data
     training = []
@@ -263,9 +267,9 @@ def initialization():
     # sample training/output
     i = 0
     w = documents[i][0]
-    # print([stemmer.stem(word.lower()) for word in w])
-    # print(training[i])
-    # print(output[i])
+    print([stemmer.stem(word.lower()) for word in w])
+    print(training[i])
+    print(output[i])
 
     X = np.array(training)
     y = np.array(output)
@@ -301,3 +305,18 @@ def performClassification(file_path):
     else:
         print("Old Path is: \t"+file_path+"\nNew Path is: \t"+newPath)
         return newPath
+
+# *************************************************************
+#
+# The following lines of code are used purely for black box testing without the GUI
+#
+# *************************************************************
+
+# if __name__ == "__main__":
+#     initialization()
+#     # newCategory = classify(file_path, df.checkextension(file_path))
+#     classify('/Users/CaoimheHarvey/Desktop/Test_Files/StringTheory.txt', df.checkextension('/Users/CaoimheHarvey/Desktop/Test_Files/StringTheory.txt'))
+#     classify('/Users/CaoimheHarvey/Desktop/Test_Files/BillOfRights.txt',df.checkextension('/Users/CaoimheHarvey/Desktop/Test_Files/BillOfRights.txt'))
+#     classify('/Users/CaoimheHarvey/Desktop/Test_Files/Homeostasis.txt',df.checkextension('/Users/CaoimheHarvey/Desktop/Test_Files/Homeostasis.txt'))
+#     classify('/Users/CaoimheHarvey/Desktop/Test_Files/VisualArt.txt',df.checkextension('/Users/CaoimheHarvey/Desktop/Test_Files/VisualArt.txt'))
+
